@@ -7,11 +7,11 @@ import Table from "./components/Table.js";
 import { Mapbox } from "./components/Mapbox";
 
 //Spots API
-const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
+const BASE_URL = "https://605301db45e4b30017290936.mockapi.io/spot";
 
 function App() {
   //  states
-  const [allSpots, setAllSpots] = useState([]);
+  const [spots, setSpots] = useState([]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [viewport, setViewport] = useState({
@@ -38,32 +38,34 @@ function App() {
 
   //Loading data
   const loadData = async () => {
-    await fetch(BASE_URL + "/spot")
-      .then((response) => response.json())
-      .then((receivedData) => {
-        setAllSpots(receivedData);
-        setFilteredSpots(receivedData);
-      });
+    await fetch(BASE_URL)
+      .then(
+          (response) => response.json()
+      )
+      .then(
+          (receivedData) => {
+              setSpots(receivedData)
+              setFilteredSpots(receivedData)
+          }
+      );
   };
   useEffect(() => {
     loadData();
   }, []);
 
   const handleOnChange = (searchTerm) => {
-    if (searchTerm === "") {
-      setFilteredSpots(allSpots);
-    }
-    setFilteredSpots(
-      allSpots.filter((val) => {
-        if (
-          val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          val.country.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          return val;
-        }
-        return false;
-      })
-    );
+      if(searchTerm === "") {
+          setFilteredSpots(spots)
+      }
+      setFilteredSpots(spots.filter((val) => {
+          if (
+              val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              val.country.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+              return val;
+          }
+          return false;
+      }))
   };
 
   return (
@@ -80,15 +82,17 @@ function App() {
         <h2>Locations</h2>
       </label>
       <input
-        type="text"
-        name="locations"
-        id="locations"
-        placeholder="Search..."
-        onChange={(event) => {
-          handleOnChange(event.target.value);
-        }}
+          type="text"
+          name="locations"
+          id="locations"
+          placeholder="Search..."
+          onChange={(event) => {
+              handleOnChange (event.target.value);
+          }}
       />
-      <Table spots={filteredSpots} />
+      <Table
+        spots={filteredSpots}
+      />
     </div>
   );
 }

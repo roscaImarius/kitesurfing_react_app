@@ -11,7 +11,7 @@ const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
 
 function App() {
   //  states
-  const [allSpots, setAllSpots] = useState([]);
+  const [spots, setSpots] = useState([]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [viewport, setViewport] = useState({
@@ -41,7 +41,7 @@ function App() {
     await fetch(BASE_URL + "/spot")
       .then((response) => response.json())
       .then((receivedData) => {
-        setAllSpots(receivedData);
+        setSpots(receivedData);
         setFilteredSpots(receivedData);
       });
   };
@@ -51,10 +51,10 @@ function App() {
 
   const handleOnChange = (searchTerm) => {
     if (searchTerm === "") {
-      setFilteredSpots(allSpots);
+      setFilteredSpots(spots);
     }
     setFilteredSpots(
-      allSpots.filter((val) => {
+      spots.filter((val) => {
         if (
           val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           val.country.toLowerCase().includes(searchTerm.toLowerCase())
