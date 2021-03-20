@@ -20,6 +20,6 @@
      text-decoration: none;
      
 } */
-/* .mapBox {
-  width: 300px !important;
-} */
+.mapBox {
+  width: 300px;
+}

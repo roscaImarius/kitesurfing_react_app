@@ -1,5 +1,4 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
 // import { Marker } from "react-map-gl";
@@ -16,7 +15,6 @@ function App() {
   const [favoriteSpots, setFavoriteSpots] = useState(["1"]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
-  const [search, setSearch] = useState("");
   const [viewport, setViewport] = useState({
     width: window.innerWidth,
     height: 400,
@@ -78,7 +76,7 @@ function App() {
   };
 
   return (
-    <div className="App ">
+    <div className="App">
       <Header />
       <Mapbox
         spots={filteredSpots}

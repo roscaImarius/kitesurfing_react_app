@@ -1,11 +1,12 @@
 .App {
   text-align: center;
 }
-.header {
+.header{
   margin: 0 19px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
 .spotBtn {
   background: transparent;
@@ -20,6 +21,6 @@
      text-decoration: none;
      
 } */
-/* .mapBox {
-  width: 300px !important;
+/* .mapbox{
+ min-height: 200px;
 } */

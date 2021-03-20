@@ -32,7 +32,7 @@ const Table = ({
       (currentPage - 1) * ITEMS_PER_PAGE,
       (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
     );
-  }, [spots, currentPage]);
+  }, [spots]);
 
   return (
     <div className="m-5">

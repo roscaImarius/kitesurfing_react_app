@@ -25,14 +25,8 @@ const Table = ({
   const spotDate = useMemo(() => {
     let computedSpot = spots;
 
-    setTotalItems(computedSpot.length);
-
-    //Page slice
-    return computedSpot.slice(
-      (currentPage - 1) * ITEMS_PER_PAGE,
-      (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
-    );
-  }, [spots, currentPage]);
+    return computedSpot;
+  }, [spots]);
 
   return (
     <div className="m-5">

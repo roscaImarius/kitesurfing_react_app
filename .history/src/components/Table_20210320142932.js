@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import PaginationComp from "./PaginationComp";
 import TableHeader from "./TableHeader";
 // import ReactTable from "react-table";
@@ -9,9 +9,6 @@ const Table = ({
   addToFavorites,
   favoriteSpots,
 }) => {
-  const [totalItems, setTotalItems] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 10;
   const headers = [
     { name: "Name", field: "name", sortable: false },
     { name: "Country ", field: "country", sortable: true },
@@ -25,23 +22,12 @@ const Table = ({
   const spotDate = useMemo(() => {
     let computedSpot = spots;
 
-    setTotalItems(computedSpot.length);
-
-    //Page slice
-    return computedSpot.slice(
-      (currentPage - 1) * ITEMS_PER_PAGE,
-      (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
-    );
-  }, [spots, currentPage]);
+    return computedSpot;
+  }, [spots]);
 
   return (
-    <div className="m-5">
-      <PaginationComp
-        total={totalItems}
-        itemsPerPage={ITEMS_PER_PAGE}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+    <div>
+      <PaginationComp />
       <table className="table table-striped">
         <TableHeader headers={headers} />
         <tbody>

@@ -16,7 +16,6 @@ function App() {
   const [favoriteSpots, setFavoriteSpots] = useState(["1"]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
-  const [search, setSearch] = useState("");
   const [viewport, setViewport] = useState({
     width: window.innerWidth,
     height: 400,
@@ -78,7 +77,7 @@ function App() {
   };
 
   return (
-    <div className="App ">
+    <div className="App m-5">
       <Header />
       <Mapbox
         spots={filteredSpots}
