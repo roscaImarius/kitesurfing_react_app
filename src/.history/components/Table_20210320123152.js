@@ -1,11 +1,6 @@
 import React from "react";
 
-const Table = ({
-  spots,
-  removeFromFavorites,
-  addToFavorites,
-  favoriteSpots,
-}) => {
+const Table = ({ spots, favoriteSpots }) => {
   return (
     <div>
       <h5>Name Country Latitude, Longitude, Wind Probability When to go</h5>
@@ -13,11 +8,12 @@ const Table = ({
         <div key={spot.id}>
           {favoriteSpots.includes(spot.id) ? null : <span>nu e favorite</span>}
           {favoriteSpots.includes(spot.id) ? (
-            <button onClick={() => removeFromFavorites(spot.id)}>Remove</button>
+            <button>Remove</button>
           ) : (
-            <button onClick={() => addToFavorites(spot.id)}>Add</button>
+            <button>Add</button>
           )}
-          {spot.id},{spot.name}, {spot.country}, {spot.lat}, {spot.long},
+          {id}
+          {spot.name}, {spot.country}, {spot.lat}, {spot.long},
           {spot.probability}, {spot.month}
         </div>
       ))}

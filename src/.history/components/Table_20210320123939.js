@@ -13,9 +13,9 @@ const Table = ({
         <div key={spot.id}>
           {favoriteSpots.includes(spot.id) ? null : <span>nu e favorite</span>}
           {favoriteSpots.includes(spot.id) ? (
-            <button onClick={() => removeFromFavorites(spot.id)}>Remove</button>
+            <button onClick={removeFromFavorites(spot.id)}>Remove</button>
           ) : (
-            <button onClick={() => addToFavorites(spot.id)}>Add</button>
+            <button onClick={addToFavorites(spot.id)}>Add</button>
           )}
           {spot.id},{spot.name}, {spot.country}, {spot.lat}, {spot.long},
           {spot.probability}, {spot.month}

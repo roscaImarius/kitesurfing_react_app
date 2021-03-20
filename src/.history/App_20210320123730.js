@@ -96,8 +96,7 @@ function App() {
       />
       <Table
         spots={filteredSpots}
-        addToFavorites={addToFavorites}
-        removeFromFavorites={removeFromFavorites}
+        setFavoriteSpots={setFavoriteSpots}
         favoriteSpots={favoriteSpots}
       />
     </div>

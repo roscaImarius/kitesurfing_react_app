@@ -12,7 +12,7 @@ const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
 function App() {
   //  states
   const [allSpots, setAllSpots] = useState([]);
-  const [favoriteSpots, setFavoriteSpots] = useState(["1"]);
+  const [favoriteSpots, setFavoriteSpots] = useState([1]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [viewport, setViewport] = useState({
@@ -66,12 +66,7 @@ function App() {
       })
     );
   };
-  const addToFavorites = (spotId) => {
-    setFavoriteSpots([...favoriteSpots, spotId]);
-  };
-  const removeFromFavorites = (spotId) => {
-    setFavoriteSpots(favoriteSpots.filter((favSpotId) => favSpotId !== spotId));
-  };
+
   return (
     <div className="App">
       <Header />
@@ -94,12 +89,7 @@ function App() {
           handleOnChange(event.target.value);
         }}
       />
-      <Table
-        spots={filteredSpots}
-        addToFavorites={addToFavorites}
-        removeFromFavorites={removeFromFavorites}
-        favoriteSpots={favoriteSpots}
-      />
+      <Table spots={filteredSpots} favoriteSpots={favoriteSpots} />
     </div>
   );
 }

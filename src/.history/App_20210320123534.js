@@ -69,9 +69,7 @@ function App() {
   const addToFavorites = (spotId) => {
     setFavoriteSpots([...favoriteSpots, spotId]);
   };
-  const removeFromFavorites = (spotId) => {
-    setFavoriteSpots(favoriteSpots.filter((favSpotId) => favSpotId !== spotId));
-  };
+
   return (
     <div className="App">
       <Header />
@@ -96,8 +94,7 @@ function App() {
       />
       <Table
         spots={filteredSpots}
-        addToFavorites={addToFavorites}
-        removeFromFavorites={removeFromFavorites}
+        setFavoriteSpots={setFavoriteSpots}
         favoriteSpots={favoriteSpots}
       />
     </div>
