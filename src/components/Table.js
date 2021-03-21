@@ -4,7 +4,7 @@ import TableHeader from "./TableHeader";
 // import ReactTable from "react-table";
 
 const Table = ({
-  spots,
+  filteredSpots,
   currentPage,
   setCurrentPage,
   removeFromFavorites,
@@ -22,30 +22,36 @@ const Table = ({
     { name: "Longitude", field: "long", sortable: true },
     { name: "Wind Prob.", field: "probability", sortable: true },
     { name: "When to go", field: "month", sortable: true },
-    { name: "Favorite", field: "fav", sortable: false },
+    // { name: "Favorite", field: "fav", sortable: false },
   ];
 
-  const spotDate = useMemo(() => {
-    let computedSpots = spots;
+  const spotData = useMemo(() => {
+    let computedSpots = filteredSpots;
 
     setTotalItems(computedSpots.length);
 
     if (sorting.field) {
-      console.log("sortam");
       const reversed = sorting.order === "asc" ? 1 : -1;
-      spots = spots.sort(
-        (a, b) => reversed * a[sorting.field].localeCompare(b[sorting.field])
-      );
+      sorting.field === "lat" ||
+      sorting.filteredSpots === "long" ||
+      sorting.field === "probability"
+        ? (filteredSpots = filteredSpots.sort(
+            (a, b) => reversed * (a[sorting.field] - b[sorting.field])
+          ))
+        : (filteredSpots = filteredSpots.sort(
+            (a, b) =>
+              reversed * a[sorting.field].localeCompare(b[sorting.field])
+          ));
     }
     //Page slice
     return computedSpots.slice(
       (currentPage - 1) * ITEMS_PER_PAGE,
       (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
     );
-  }, [spots, currentPage, sorting]);
+  }, [filteredSpots, currentPage, sorting]);
 
   return (
-    <div className="m-1">
+    <div className="m-3 tableContainer">
       <PaginationComp
         total={totalItems}
         itemsPerPage={ITEMS_PER_PAGE}
@@ -55,10 +61,10 @@ const Table = ({
       <table className="table table-striped">
         <TableHeader
           headers={headers}
-          onSorting={(field, order) => setSorting(field, order)}
+          onSorting={(field, order) => setSorting({ field, order })}
         />
         <tbody>
-          {spotDate.map((spot) => (
+          {spotData.map((spot) => (
             <tr key={spot.id}>
               <td>{spot.name}</td>
               <td>{spot.country}</td>
@@ -66,7 +72,7 @@ const Table = ({
               <td>{spot.long}</td>
               <td>{spot.probability}</td>
               <td>{spot.month}</td>
-              <td>
+              {/* <td>
                 {favoriteSpots.includes(spot.id) ? " fav" : "not fav"}
                 {favoriteSpots.includes(spot.id) ? (
                   <button onClick={() => removeFromFavorites(spot.id)}>
@@ -75,7 +81,7 @@ const Table = ({
                 ) : (
                   <button onClick={() => addToFavorites(spot.id)}>Add</button>
                 )}
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>

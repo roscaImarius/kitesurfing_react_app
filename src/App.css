@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 .header {
   margin: 0 19px;
   display: flex;
@@ -12,18 +12,38 @@
   text-decoration: none;
   border: none;
 }
+/* POPUP */
 .popup * {
   margin: 0;
+  padding: 0 2px;
+  font-size: 13px;
+  /* text-align: left; */
 }
-/* .spotBtn:focus{
-   border: none;
-     text-decoration: none;
-     
+.starOff,
+.starOn {
+  margin-top: 4px;
+  margin-right: 11px;
+  width: 20px;
+  height: 15px;
+}
+
+.favBtn {
+  width: 100%;
+}
+/* TABLE */
+.tableContainer {
+  width: 95% !important;
+  font-size: 13px;
+}
+/* 
+.mapBox {
+  height: 500px;
 } */
-/* .mapBox {
-  width: 300px !important;
-} */
+.locationInput {
+  margin-left: 20px;
+}
 .thBtn {
+  width: 18%;
   cursor: pointer;
   background-color: rgb(167, 167, 167);
 }

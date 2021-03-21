@@ -1,8 +1,13 @@
 import React from "react";
 import ReactMapGL, { Popup, Marker } from "react-map-gl";
-
+import starOff from "../imgs/star-off.png";
+import starOn from "../imgs/star-on.png";
+import marker from "../imgs/marker.png";
 export const Mapbox = ({
-  spots,
+  filteredSpots,
+  addToFavorites,
+  removeFromFavorites,
+  favoriteSpots,
   selectedSpot,
   setSelectedSpot,
   setViewport,
@@ -10,7 +15,7 @@ export const Mapbox = ({
 }) => {
   const markers = React.useMemo(
     () =>
-      spots.map((spot) => (
+      filteredSpots.map((spot) => (
         <Marker
           key={spot.id}
           latitude={parseFloat(spot.lat)}
@@ -26,14 +31,29 @@ export const Mapbox = ({
           >
             <img
               alt="map pointer"
-              src="/marker.png"
+              src="marker.png"
               width={viewport.zoom * 8}
               heigth={viewport.zoom * 8}
             />
+            {/* {favoriteSpots.includes(spot.id) ? (
+              <img
+                alt="map pointer"
+                src="markerGreen.png"
+                width={viewport.zoom * 8}
+                heigth={viewport.zoom * 8}
+              />
+            ) : (
+              <img
+                alt="map pointer"
+                src="marker.png"
+                width={viewport.zoom * 8}
+                heigth={viewport.zoom * 8}
+              />
+            )} */}
           </button>
         </Marker>
       )),
-    [spots, viewport.zoom, setSelectedSpot]
+    [filteredSpots, viewport.zoom, setSelectedSpot]
   );
 
   return (
@@ -54,20 +74,51 @@ export const Mapbox = ({
         {/* Displaying popups */}
         {selectedSpot ? (
           <Popup
+            closeOnClick={false}
             latitude={parseFloat(selectedSpot.lat)}
             longitude={parseFloat(selectedSpot.long)}
             className="popup"
             onClose={() => setSelectedSpot(null)}
           >
-            <h4>{selectedSpot.name}</h4>
-            <h5>{selectedSpot.country}</h5>
-            <p>Wind prob: {selectedSpot.probability}</p>
+            <div className="d-flex">
+              <p>
+                <b>{selectedSpot.name}</b>
+              </p>
+              {favoriteSpots.includes(selectedSpot.id) ? (
+                <img className="starOn" src={starOn}></img>
+              ) : (
+                <img className="starOff" src={starOff}></img>
+              )}
+            </div>
+            <p className="mb-2 ">
+              <b>{selectedSpot.country}</b>
+            </p>
+            <p className="mb-2"> Wind prob: {selectedSpot.probability}</p>
             <p>LATITUDE</p>
-            {selectedSpot.lat}
+            <p className="mb-2">{selectedSpot.lat}</p>
             <p>LONGITUDE:</p>
-            {selectedSpot.long}
-            <p>When to go: {selectedSpot.month}</p>
-            <button>ADD TO FAVORITES</button>
+            <p className="mb-2">{selectedSpot.long}</p>
+            <p>When to go:</p>
+            <p> {selectedSpot.month}</p>
+            {favoriteSpots.includes(selectedSpot.id) ? (
+              <button
+                onClick={() => removeFromFavorites(selectedSpot.id)}
+                className="btn-danger favBtn"
+              >
+                <p>
+                  <small>REMOVE FROM FAVORITES</small>
+                </p>
+              </button>
+            ) : (
+              <button
+                onClick={() => addToFavorites(selectedSpot.id)}
+                className="btn-success favBtn"
+              >
+                <p>
+                  <small>ADD TO FAVORITES</small>
+                </p>
+              </button>
+            )}
           </Popup>
         ) : null}
       </ReactMapGL>

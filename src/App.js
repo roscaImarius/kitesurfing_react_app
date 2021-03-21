@@ -8,17 +8,14 @@ import Table from "./components/Table.js";
 import { Mapbox } from "./components/Mapbox";
 //Spots API
 const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
-
 function App() {
   //  states
   const [allSpots, setAllSpots] = useState([]);
-  const [favoriteSpots, setFavoriteSpots] = useState([]);
+  console.log("reincarcam");
+  const [favoriteSpots, setFavoriteSpots] = useState(["1", "2"]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
-  console.log(allSpots);
-
   const [currentPage, setCurrentPage] = useState(1);
-
   const [viewport, setViewport] = useState({
     width: window.innerWidth,
     height: 400,
@@ -30,14 +27,15 @@ function App() {
 
   //Close popup when escape pushed
   useEffect(() => {
-    const listener = (e) => {
+    const escListener = (e) => {
       if (e.key === "Escape") {
         setSelectedSpot(null);
       }
     };
-    window.addEventListener("keyup", listener);
+
+    window.addEventListener("keyup", escListener);
     return () => {
-      window.removeEventListener("keyup", listener);
+      window.removeEventListener("keyup", escListener);
     };
   }, []);
 
@@ -83,29 +81,36 @@ function App() {
     <div className="App ">
       <Header />
       <Mapbox
-        spots={filteredSpots}
+        favoriteSpots={favoriteSpots}
+        addToFavorites={addToFavorites}
+        removeFromFavorites={removeFromFavorites}
+        filteredSpots={filteredSpots}
         setSelectedSpot={setSelectedSpot}
         setViewport={setViewport}
         viewport={viewport}
         selectedSpot={selectedSpot}
       />
-      <label htmlFor="locations">
-        <h2>Locations</h2>
-      </label>
-      <input
-        type="text"
-        name="locations"
-        id="locations"
-        placeholder="Search..."
-        onChange={(event) => {
-          handleOnChange(event.target.value);
-          setCurrentPage(1);
-        }}
-      />
+      <div className="locationInput">
+        <label htmlFor="locations">
+          <h2>Locations</h2>
+        </label>
+        <br />
+        <input
+          type="text"
+          name="locations"
+          id="locations"
+          placeholder="Search..."
+          onChange={(event) => {
+            handleOnChange(event.target.value);
+            setCurrentPage(1);
+          }}
+        />
+      </div>
+
       <Table
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        spots={filteredSpots}
+        filteredSpots={filteredSpots}
         addToFavorites={addToFavorites}
         removeFromFavorites={removeFromFavorites}
         favoriteSpots={favoriteSpots}
