@@ -2,7 +2,8 @@ import React from "react";
 import ReactMapGL, { Popup, Marker } from "react-map-gl";
 import starOff from "../imgs/star-off.png";
 import starOn from "../imgs/star-on.png";
-import marker from "../imgs/marker.png";
+// import marker from "../imgs/marker.png";
+
 export const Mapbox = ({
   filteredSpots,
   addToFavorites,
@@ -18,8 +19,8 @@ export const Mapbox = ({
       filteredSpots.map((spot) => (
         <Marker
           key={spot.id}
-          latitude={parseFloat(spot.lat)}
-          longitude={parseFloat(spot.long)}
+          latitude={Number(spot.lat)}
+          longitude={Number(spot.long)}
           offsetTop={(-viewport.zoom * 5) / 2}
         >
           <button
@@ -85,9 +86,9 @@ export const Mapbox = ({
                 <b>{selectedSpot.name}</b>
               </p>
               {favoriteSpots.includes(selectedSpot.id) ? (
-                <img className="starOn" src={starOn}></img>
+                <img className="starOn" src={starOn} alt="starOnIcon"></img>
               ) : (
-                <img className="starOff" src={starOff}></img>
+                <img className="starOff" src={starOff} alt="starOffIcon"></img>
               )}
             </div>
             <p className="mb-2 ">

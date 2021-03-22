@@ -11,7 +11,8 @@ const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
 function App() {
   //  states
   const [allSpots, setAllSpots] = useState([]);
-  console.log("reincarcam");
+  // console.log(allSpots);
+  console.log(window.innerWidth);
   const [favoriteSpots, setFavoriteSpots] = useState(["1", "2"]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
@@ -79,20 +80,20 @@ function App() {
 
   return (
     <div className="App ">
-      <Header />
+      <Header filteredSpots={filteredSpots} />
       <Mapbox
         favoriteSpots={favoriteSpots}
         addToFavorites={addToFavorites}
         removeFromFavorites={removeFromFavorites}
         filteredSpots={filteredSpots}
-        setSelectedSpot={setSelectedSpot}
-        setViewport={setViewport}
-        viewport={viewport}
         selectedSpot={selectedSpot}
+        setSelectedSpot={setSelectedSpot}
+        viewport={viewport}
+        setViewport={setViewport}
       />
-      <div className="locationInput">
+      <div className="locationInput mt-2">
         <label htmlFor="locations">
-          <h2>Locations</h2>
+          <h4>Locations</h4>
         </label>
         <br />
         <input

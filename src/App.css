@@ -50,3 +50,10 @@
 .thBtn:hover {
   opacity: 0.9;
 }
+
+/* MODAL */
+.modal {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
