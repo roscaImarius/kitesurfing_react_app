@@ -12,8 +12,7 @@ function App() {
   //  states
   const [allSpots, setAllSpots] = useState([]);
   // console.log(allSpots);
-  console.log(window.innerWidth);
-  const [favoriteSpots, setFavoriteSpots] = useState(["1", "2"]);
+  const [favoriteSpots, setFavoriteSpots] = useState([]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +79,7 @@ function App() {
 
   return (
     <div className="App ">
-      <Header filteredSpots={filteredSpots} />
+      <Header filteredSpots={filteredSpots} loadData={loadData} />
       <Mapbox
         favoriteSpots={favoriteSpots}
         addToFavorites={addToFavorites}
