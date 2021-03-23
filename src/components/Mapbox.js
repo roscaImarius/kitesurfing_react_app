@@ -2,10 +2,13 @@ import React from "react";
 import ReactMapGL, { Popup, Marker } from "react-map-gl";
 import starOff from "../imgs/star-off.png";
 import starOn from "../imgs/star-on.png";
-// import marker from "../imgs/marker.png";
+import { FilterBtn } from "./FilterBtn";
 
 export const Mapbox = ({
+  allSpots,
+  setAllSpots,
   filteredSpots,
+  setFilteredSpots,
   addToFavorites,
   removeFromFavorites,
   favoriteSpots,
@@ -30,18 +33,12 @@ export const Mapbox = ({
               setSelectedSpot(spot);
             }}
           >
-            <img
-              alt="map pointer"
-              src="marker.png"
-              width={viewport.zoom * 8}
-              heigth={viewport.zoom * 8}
-            />
-            {/* {favoriteSpots.includes(spot.id) ? (
+            {favoriteSpots.includes(spot.id) ? (
               <img
                 alt="map pointer"
                 src="markerGreen.png"
-                width={viewport.zoom * 8}
-                heigth={viewport.zoom * 8}
+                width={viewport.zoom * 10}
+                heigth={viewport.zoom * 10}
               />
             ) : (
               <img
@@ -50,15 +47,21 @@ export const Mapbox = ({
                 width={viewport.zoom * 8}
                 heigth={viewport.zoom * 8}
               />
-            )} */}
+            )}
           </button>
         </Marker>
       )),
-    [filteredSpots, viewport.zoom, setSelectedSpot]
+    [filteredSpots, favoriteSpots, viewport.zoom, setSelectedSpot]
   );
 
   return (
     <div>
+      <FilterBtn
+        filteredSpots={filteredSpots}
+        allSpots={allSpots}
+        setAllSpots={setAllSpots}
+        setFilteredSpots={setFilteredSpots}
+      />
       {/* Display map - Mapbox */}
       <ReactMapGL
         className="mapbox"

@@ -35,10 +35,18 @@ const Header = ({ filteredSpots, loadData }) => {
         handleClose={handleClose}
       />
       <div className="header">
-        <div>Kite</div>
-        <button className="small btn-info" onClick={() => handleShow()}>
-          ADD SPOT
-        </button>
+        <h3>Kite</h3>
+        <div>
+          <button
+            className="addSpotBtn small mr-3 btn-primary"
+            onClick={() => handleShow()}
+          >
+            ADD SPOT
+          </button>
+          <button className=" logIn ">
+            <i className=" fa fa-user-circle-o" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </>
   );

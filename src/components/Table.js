@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import PaginationComp from "./PaginationComp";
 import TableHeader from "./TableHeader";
-// import ReactTable from "react-table";
 
 const Table = ({
   filteredSpots,

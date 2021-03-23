@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import Axios from "axios";
 
 export default function ModalAddSpot({
@@ -23,8 +23,12 @@ export default function ModalAddSpot({
 
   function handleNewSpot(e) {
     const newSpott = { ...newSpot };
-    newSpott[e.target.id] =
-      e.target.value[0].toUpperCase() + e.target.value.substring(1);
+    if (isNaN(newSpott[e.target.id])) {
+      newSpott[e.target.id] =
+        e.target.value[0].toUpperCase() + e.target.value.substring(1);
+    } else {
+      newSpott[e.target.id] = e.target.value;
+    }
     setNewSpot(newSpott);
     // console.log(newSpott);
   }
@@ -110,7 +114,9 @@ export default function ModalAddSpot({
           <input
             className="mb-1"
             id="long"
-            value={newSpot.long}
+            value={
+              newSpot.long >= -180 && newSpot.long <= 180 ? newSpot.long : ""
+            }
             onChange={(e) => handleNewSpot(e)}
             type="number"
           />
@@ -122,7 +128,7 @@ export default function ModalAddSpot({
           <input
             className="mb-2"
             id="lat"
-            value={newSpot.lat}
+            value={newSpot.lat > -84.5 && newSpot.lat <= 85 ? newSpot.lat : ""}
             onChange={(e) => handleNewSpot(e)}
             type="number"
           />

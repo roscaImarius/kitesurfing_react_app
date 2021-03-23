@@ -74,10 +74,12 @@ function App() {
 
   const addToFavorites = (spotId) => {
     setFavoriteSpots([...favoriteSpots, spotId]);
+    loadData();
   };
 
   const removeFromFavorites = (spotId) => {
     setFavoriteSpots(favoriteSpots.filter((favSpotId) => favSpotId !== spotId));
+    loadData();
   };
 
   return (
@@ -88,10 +90,13 @@ function App() {
         addToFavorites={addToFavorites}
         removeFromFavorites={removeFromFavorites}
         filteredSpots={filteredSpots}
+        setFilteredSpots={setFilteredSpots}
         selectedSpot={selectedSpot}
         setSelectedSpot={setSelectedSpot}
         viewport={viewport}
         setViewport={setViewport}
+        allSpots={allSpots}
+        setAllSpots={setAllSpots}
       />
       <div className="locationInput mt-2">
         <label htmlFor="locations">
