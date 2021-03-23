@@ -6,6 +6,7 @@ import TableHeader from "./TableHeader";
 const Table = ({
   filteredSpots,
   currentPage,
+  allSpots,
   setCurrentPage,
   removeFromFavorites,
   addToFavorites,
@@ -27,22 +28,26 @@ const Table = ({
 
   const spotData = useMemo(() => {
     let computedSpots = filteredSpots;
+    // let computedSpots = allSpots;
 
     setTotalItems(computedSpots.length);
 
     if (sorting.field) {
       const reversed = sorting.order === "asc" ? 1 : -1;
-      sorting.field === "lat" ||
-      sorting.filteredSpots === "long" ||
-      sorting.field === "probability"
-        ? (filteredSpots = filteredSpots.sort(
-            (a, b) => reversed * (a[sorting.field] - b[sorting.field])
-          ))
-        : (filteredSpots = filteredSpots.sort(
-            (a, b) =>
-              reversed * a[sorting.field].localeCompare(b[sorting.field])
-          ));
+      computedSpots = computedSpots.sort((a, b) => {
+        if (isNaN(a[sorting.field])) {
+          return reversed * (a[sorting.field] > b[sorting.field] ? 1 : -1);
+        } else {
+          return (
+            reversed *
+            (parseFloat(a[sorting.field]) > parseFloat(b[sorting.field])
+              ? 1
+              : -1)
+          );
+        }
+      });
     }
+
     //Page slice
     return computedSpots.slice(
       (currentPage - 1) * ITEMS_PER_PAGE,

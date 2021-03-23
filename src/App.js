@@ -2,25 +2,28 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
-// import { Marker } from "react-map-gl";
 import Header from "./components/Header";
 import Table from "./components/Table.js";
 import { Mapbox } from "./components/Mapbox";
-//Spots API
+// import { Marker } from "react-map-gl";
+// import { spots } from "./components/DATA_SPOTS";
 const BASE_URL = "https://605301db45e4b30017290936.mockapi.io";
 function App() {
   //  states
-  const [allSpots, setAllSpots] = useState([]);
+  const [allSpots, setAllSpots] = useState();
   // console.log(allSpots);
   const [favoriteSpots, setFavoriteSpots] = useState([]);
   const [filteredSpots, setFilteredSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [viewport, setViewport] = useState({
-    width: window.innerWidth,
-    height: 400,
+    width: "98.5%",
+    logoEnabled: false,
+    height: 500,
     latitude: 46.7577,
     longitude: 25.4376,
+    maxZoom: 12,
+    minZoom: 2,
     zoom: 2.5,
     pitch: 40,
   });
@@ -108,6 +111,7 @@ function App() {
       </div>
 
       <Table
+        allSpots={allSpots}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         filteredSpots={filteredSpots}

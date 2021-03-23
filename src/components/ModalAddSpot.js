@@ -23,7 +23,8 @@ export default function ModalAddSpot({
 
   function handleNewSpot(e) {
     const newSpott = { ...newSpot };
-    newSpott[e.target.id] = e.target.value;
+    newSpott[e.target.id] =
+      e.target.value[0].toUpperCase() + e.target.value.substring(1);
     setNewSpot(newSpott);
     // console.log(newSpott);
   }
@@ -34,8 +35,8 @@ export default function ModalAddSpot({
     Axios.post(url, {
       name: newSpot.name,
       country: newSpot.country,
-      lat: "",
-      long: "",
+      lat: newSpot.lat,
+      long: newSpot.long,
       month: newSpot.month,
     }).then((res) => {
       //   console.log(res.data);
@@ -60,18 +61,13 @@ export default function ModalAddSpot({
         onHide={handleClose}
         onSubmit={handleSubmit}
       >
-        <Modal.Header>
-          <Modal.Title>
-            <h5>Add Spot</h5>
-          </Modal.Title>
-        </Modal.Header>
         <Modal.Body>
+          <h5>Add Spot</h5>
+          {/* NAME */}
           <label htmlFor="spotName">
             <b> Name</b>
           </label>
           <br />
-
-          {/* NAME */}
           <input
             type="text"
             id="name"
@@ -80,13 +76,12 @@ export default function ModalAddSpot({
             onChange={(e) => handleNewSpot(e)}
           />
 
-          <div className="mt-3 ">
+          {/* COUNTRY */}
+          <div className="mt-2 ">
             <label htmlFor="spotCountry">
               <b> Country</b>
             </label>
             <br />
-
-            {/* COUNTRY */}
             <input
               type="text"
               id="country"
@@ -95,17 +90,41 @@ export default function ModalAddSpot({
               onChange={(e) => handleNewSpot(e)}
             />
           </div>
-          <p className="mt-3 mb-1">
-            <b>High Seasson</b>
-          </p>
 
           {/* DATE */}
+          <p className="mt-2 mb-1">
+            <b>High Seasson</b>
+          </p>
           <input
-            className="mb-2"
+            className="mb-1 mb-1"
             id="month"
             value={newSpot.month}
             onChange={(e) => handleNewSpot(e)}
             type="date"
+          />
+
+          {/* Longitude */}
+          <p className="mt-2 mb-1">
+            <b>Longitude</b>
+          </p>
+          <input
+            className="mb-1"
+            id="long"
+            value={newSpot.long}
+            onChange={(e) => handleNewSpot(e)}
+            type="number"
+          />
+
+          {/* Latitude */}
+          <p className="mt-1 mb-1">
+            <b>Latitude</b>
+          </p>
+          <input
+            className="mb-2"
+            id="lat"
+            value={newSpot.lat}
+            onChange={(e) => handleNewSpot(e)}
+            type="number"
           />
 
           {/* SMALL MAP*/}
@@ -119,9 +138,13 @@ export default function ModalAddSpot({
             onViewportChange={(newViewport) => setViewport(newViewport)}
           ></ReactMapGL>
         </Modal.Body>
-        <Modal.Footer>
-          <button onClick={() => handleClose()}>CANCEL</button>
-          <button onClick={(e) => handleSubmit(e)}>OK</button>
+        <Modal.Footer className="modalFooter">
+          <button className="btnF" onClick={() => handleClose()}>
+            CANCEL
+          </button>
+          <button className="btnF" onClick={(e) => handleSubmit(e)}>
+            OK
+          </button>
         </Modal.Footer>
       </Modal>
       ;

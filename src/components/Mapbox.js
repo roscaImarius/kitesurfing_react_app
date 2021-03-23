@@ -82,9 +82,9 @@ export const Mapbox = ({
             onClose={() => setSelectedSpot(null)}
           >
             <div className="d-flex">
-              <p>
+              <h4>
                 <b>{selectedSpot.name}</b>
-              </p>
+              </h4>
               {favoriteSpots.includes(selectedSpot.id) ? (
                 <img className="starOn" src={starOn} alt="starOnIcon"></img>
               ) : (
@@ -94,7 +94,8 @@ export const Mapbox = ({
             <p className="mb-2 ">
               <b>{selectedSpot.country}</b>
             </p>
-            <p className="mb-2"> Wind prob: {selectedSpot.probability}</p>
+            <p> Wind prob:</p>
+            <p className="mb-2">{selectedSpot.probability}</p>
             <p>LATITUDE</p>
             <p className="mb-2">{selectedSpot.lat}</p>
             <p>LONGITUDE:</p>

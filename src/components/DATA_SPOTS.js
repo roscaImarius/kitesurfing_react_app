@@ -1,4 +1,4 @@
-spots = [
+export const spots = [
   {
     id: "1",
     createdAt: "2021-03-19T14:25:59.745Z",
