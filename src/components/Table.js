@@ -22,12 +22,10 @@ const Table = ({
     { name: "Longitude", field: "long", sortable: true },
     { name: "Wind Prob.", field: "probability", sortable: true },
     { name: "When to go", field: "month", sortable: true },
-    // { name: "Favorite", field: "fav", sortable: false },
   ];
 
   const spotData = useMemo(() => {
     let computedSpots = filteredSpots;
-    // let computedSpots = allSpots;
 
     setTotalItems(computedSpots.length);
 

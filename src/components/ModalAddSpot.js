@@ -23,28 +23,26 @@ export default function ModalAddSpot({
 
   function handleNewSpot(e) {
     const newSpott = { ...newSpot };
-    if (isNaN(newSpott[e.target.id])) {
-      newSpott[e.target.id] =
-        // e.target.value[0].toUpperCase() + e.target.value.substring(1);
-        e.target.value;
-    } else {
-      newSpott[e.target.id] = e.target.value;
-    }
+    newSpott[e.target.id] = e.target.value;
     setNewSpot(newSpott);
-    // console.log(newSpott);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    //Extracting month from data string
+    const date = new Date(newSpot.month);
+    const monthName = new Intl.DateTimeFormat("en-US", { month: "long" })
+      .format;
+    const longName = monthName(date);
 
     Axios.post(url, {
       name: newSpot.name,
       country: newSpot.country,
       lat: newSpot.lat,
       long: newSpot.long,
-      month: newSpot.month,
+      month: longName,
     }).then((res) => {
-      //   console.log(res.data);
       loadData();
       handleClose();
     });
@@ -59,13 +57,7 @@ export default function ModalAddSpot({
 
   return (
     <div className="modal">
-      <Modal
-        // dialogClassName="modal-50w"
-        show={show}
-        size="sm"
-        onHide={handleClose}
-        onSubmit={handleSubmit}
-      >
+      <Modal show={show} size="sm" onHide={handleClose} onSubmit={handleSubmit}>
         <Modal.Body>
           <h5>Add Spot</h5>
           {/* NAME */}

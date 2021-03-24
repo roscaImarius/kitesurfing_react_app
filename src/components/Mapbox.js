@@ -70,7 +70,10 @@ export const Mapbox = ({
           "pk.eyJ1IjoiaWhhdmVyZWFkIiwiYSI6ImNramFjcmh2djI3Z3Qyem5xdW0yeHBvdjIifQ.THAZaIzqTC_0w1bW_aAm7A"
         }
         {...viewport}
-        onViewportChange={(newViewport) => setViewport(newViewport)}
+        onViewportChange={(newViewport) => {
+          newViewport.width = "98%";
+          return setViewport(newViewport);
+        }}
       >
         {/* Displying pointers for each spot */}
         {markers}
