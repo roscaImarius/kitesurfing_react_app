@@ -4,18 +4,15 @@ import Modal from "react-bootstrap/Modal";
 
 export const FilterBtn = ({
   filteredSpots,
+  setFilteredSpots,
   allSpots,
   setAllSpots,
-  setFilteredSpots,
 }) => {
   const [showM, setShowM] = useState(false);
-  const [searchTermCountry, setSearchTermCountry] = useState("");
-  const [searchTermWind, setSearchTermWind] = useState("");
-
+  const [tempSpots, setTempSpots] = useState("");
   function handleFilters() {
     setShowM(true);
-    setSearchTermCountry("");
-    setSearchTermWind("");
+    setTempSpots(allSpots);
   }
   function handleCloseFilterModal() {
     setShowM(false);
@@ -25,25 +22,26 @@ export const FilterBtn = ({
     handleCloseFilterModal();
   }
 
-  function handleChangeInputF(e) {
-    e.target.id === "searchTermCountry"
-      ? setSearchTermCountry(e.target.value)
-      : setSearchTermWind(e.target.value);
+  function handleChangeInputW(termWind) {
+    setFilteredSpots(
+      tempSpots.filter((spotToFilter) => {
+        return spotToFilter.probability.includes(termWind.toString())
+          ? spotToFilter
+          : false;
+      })
+    );
+  }
 
-    if (searchTermCountry !== "" || searchTermWind !== "") {
-      setFilteredSpots(
-        allSpots.filter((spotToFilter) => {
-          if (
-            spotToFilter.country.includes(searchTermCountry) &&
-            spotToFilter.probability.includes(searchTermWind)
-          ) {
-            return spotToFilter;
-          } else {
-            return false;
-          }
-        })
-      );
-    }
+  function handleChangeInputC(termCountry) {
+    setFilteredSpots(
+      tempSpots.filter((spotToFilter) => {
+        if (spotToFilter.country.includes(termCountry)) {
+          return spotToFilter;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
   return (
@@ -56,7 +54,6 @@ export const FilterBtn = ({
         size="sm"
         onHide={handleCloseFilterModal}
         style={{ width: "200px", left: "45%", top: "5%" }}
-        // onSubmit={handleSubmit}
       >
         <Modal.Body>
           {/* COUNTRY */}
@@ -69,7 +66,9 @@ export const FilterBtn = ({
               type="text"
               id="searchTermCountry"
               placeholder="Spot Country"
-              onChange={(e) => handleChangeInputF(e)}
+              onChange={(e) => {
+                handleChangeInputC(e.target.value);
+              }}
             />
           </div>
           {/* Wind */}
@@ -82,7 +81,9 @@ export const FilterBtn = ({
             id="searchTermWind"
             type="number"
             placeholder="Wind"
-            onChange={(e) => handleChangeInputF(e)}
+            onChange={(e) => {
+              handleChangeInputW(e.target.value);
+            }}
           />
           <br />
           <button

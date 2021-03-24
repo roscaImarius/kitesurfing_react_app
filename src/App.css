@@ -1,5 +1,6 @@
 .App {
   margin-left: 0.5%;
+  overflow: hidden;
 }
 
 /* HEADER */
@@ -64,7 +65,10 @@
 /* TABLE */
 .tableContainer {
   font-size: 13px;
+  width: 100%;
+  overflow-x: scroll;
 }
+
 .locationInput {
   margin-left: 20px;
 }
@@ -75,6 +79,12 @@
 }
 .thBtn:hover {
   opacity: 0.9;
+}
+.table td {
+  padding: 4px !important;
+}
+.pagination {
+  font-size: smaller;
 }
 
 /* MODAL add spot*/
@@ -87,6 +97,7 @@
 .modalFooter {
   height: 45px;
 }
+
 .btnF {
   color: white;
   background: rgb(138, 23, 245);
@@ -101,14 +112,43 @@
 .filterBtn {
   height: 25px;
 }
-/* 
-.modalFilter {
-  width: 100vw;
-  right: 120px;
-  position: absolute;
-} */
+
 .mapboxgl-popup-close-button {
   padding-top: 0;
   margin-right: 4px;
   font-size: 19px;
+}
+
+/* MEDIA */
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* td {
+    border: none;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 2px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  } */
 }

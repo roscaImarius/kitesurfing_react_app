@@ -35,7 +35,12 @@ const Table = ({
       const reversed = sorting.order === "asc" ? 1 : -1;
       computedSpots = computedSpots.sort((a, b) => {
         if (isNaN(a[sorting.field])) {
-          return reversed * (a[sorting.field] > b[sorting.field] ? 1 : -1);
+          return (
+            reversed *
+            (a[sorting.field].toUpperCase() > b[sorting.field].toUpperCase()
+              ? 1
+              : -1)
+          );
         } else {
           return (
             reversed *
@@ -55,42 +60,34 @@ const Table = ({
   }, [filteredSpots, currentPage, sorting]);
 
   return (
-    <div className="m-3 tableContainer">
+    <>
       <PaginationComp
         total={totalItems}
         itemsPerPage={ITEMS_PER_PAGE}
         currentPage={currentPage}
         onPageChange={(page) => setCurrentPage(page)}
       />
-      <table className="table table-striped">
-        <TableHeader
-          headers={headers}
-          onSorting={(field, order) => setSorting({ field, order })}
-        />
-        <tbody>
-          {spotData.map((spot) => (
-            <tr key={spot.id}>
-              <td>{spot.name}</td>
-              <td>{spot.country}</td>
-              <td>{spot.lat}</td>
-              <td>{spot.long}</td>
-              <td>{spot.probability}</td>
-              <td>{spot.month}</td>
-              {/* <td>
-                {favoriteSpots.includes(spot.id) ? " fav" : "not fav"}
-                {favoriteSpots.includes(spot.id) ? (
-                  <button onClick={() => removeFromFavorites(spot.id)}>
-                    Remove
-                  </button>
-                ) : (
-                  <button onClick={() => addToFavorites(spot.id)}>Add</button>
-                )}
-              </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <div className="m-1 tableContainer">
+        <table className="table m-1 table-striped">
+          <TableHeader
+            headers={headers}
+            onSorting={(field, order) => setSorting({ field, order })}
+          />
+          <tbody>
+            {spotData.map((spot) => (
+              <tr key={spot.id}>
+                <td>{spot.name}</td>
+                <td>{spot.country}</td>
+                <td>{spot.lat}</td>
+                <td>{spot.long}</td>
+                <td>{spot.probability}</td>
+                <td>{spot.month}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

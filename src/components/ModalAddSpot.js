@@ -25,7 +25,8 @@ export default function ModalAddSpot({
     const newSpott = { ...newSpot };
     if (isNaN(newSpott[e.target.id])) {
       newSpott[e.target.id] =
-        e.target.value[0].toUpperCase() + e.target.value.substring(1);
+        // e.target.value[0].toUpperCase() + e.target.value.substring(1);
+        e.target.value;
     } else {
       newSpott[e.target.id] = e.target.value;
     }

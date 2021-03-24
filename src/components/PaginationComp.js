@@ -34,7 +34,7 @@ const PaginationComp = ({
   }, [totalPages, currentPage, onPageChange]);
 
   return (
-    <div>
+    <div className="m-2 pagination">
       <Pagination>
         <Pagination.Prev
           onClick={() => onPageChange(currentPage - 1)}

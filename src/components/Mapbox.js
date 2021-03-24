@@ -58,9 +58,9 @@ export const Mapbox = ({
     <div>
       <FilterBtn
         filteredSpots={filteredSpots}
+        setFilteredSpots={setFilteredSpots}
         allSpots={allSpots}
         setAllSpots={setAllSpots}
-        setFilteredSpots={setFilteredSpots}
       />
       {/* Display map - Mapbox */}
       <ReactMapGL
