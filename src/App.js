@@ -23,7 +23,7 @@ function App() {
     latitude: 46.7577,
     longitude: 25.4376,
     maxZoom: 12,
-    minZoom: 2,
+    minZoom: 1.5,
     zoom: 2.5,
     pitch: 40,
   });
