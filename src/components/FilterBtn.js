@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import filterIcon from "../imgs/filter.png";
 import Modal from "react-bootstrap/Modal";
 
@@ -10,10 +10,17 @@ export const FilterBtn = ({
 }) => {
   const [showM, setShowM] = useState(false);
   const [tempSpots, setTempSpots] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+  const [searchTermWind, setSearchTermWind] = useState("");
+  const [searchTermCountry, setSearchTermCountry] = useState("");
+
+  console.log(allSpots, filteredSpots);
+
   function handleFilters() {
     setShowM(true);
-    setTempSpots(allSpots);
+    setFilteredSpots(allSpots);
   }
+
   function handleCloseFilterModal() {
     setShowM(false);
   }
@@ -22,27 +29,33 @@ export const FilterBtn = ({
     handleCloseFilterModal();
   }
 
-  function handleChangeInputW(termWind) {
-    setFilteredSpots(
-      tempSpots.filter((spotToFilter) => {
-        return spotToFilter.probability.includes(termWind.toString())
-          ? spotToFilter
-          : false;
-      })
-    );
-  }
+  useEffect(() => {
+    setIsMounted(true);
+    if (isMounted)
+      setFilteredSpots(
+        allSpots.filter((spotToFilter) => {
+          return spotToFilter.probability.includes(searchTermWind.toString()) &&
+            spotToFilter.country.includes(searchTermCountry)
+            ? spotToFilter
+            : false;
+        })
+      );
+    return () => {
+      setIsMounted(false);
+    };
+  }, [searchTermWind, searchTermCountry, setFilteredSpots]);
 
-  function handleChangeInputC(termCountry) {
-    setFilteredSpots(
-      tempSpots.filter((spotToFilter) => {
-        if (spotToFilter.country.includes(termCountry)) {
-          return spotToFilter;
-        } else {
-          return false;
-        }
-      })
-    );
-  }
+  // function handleChangeInputC(termCountry) {
+  //   setFilteredSpots(
+  //     tempSpots.filter((spotToFilter) => {
+  //       if (spotToFilter.country.includes(termCountry)) {
+  //         return spotToFilter;
+  //       } else {
+  //         return false;
+  //       }
+  //     })
+  //   );
+  // }
 
   return (
     <div>
@@ -67,7 +80,8 @@ export const FilterBtn = ({
               id="searchTermCountry"
               placeholder="Spot Country"
               onChange={(e) => {
-                handleChangeInputC(e.target.value);
+                // handleChangeFilter();
+                setSearchTermCountry(e.target.value);
               }}
             />
           </div>
@@ -82,7 +96,8 @@ export const FilterBtn = ({
             type="number"
             placeholder="Wind"
             onChange={(e) => {
-              handleChangeInputW(e.target.value);
+              // handleChangeFilter();
+              setSearchTermWind(e.target.value);
             }}
           />
           <br />
