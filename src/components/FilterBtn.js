@@ -17,6 +17,11 @@ export const FilterBtn = ({
   const allSpotsRef = useRef(allSpots);
   const isMountedRef = useRef(isMounted);
 
+  useEffect(() => {
+    allSpotsRef.current = allSpots;
+    isMountedRef.current = isMounted;
+  });
+
   function handleFilters() {
     setShowM(true);
     setFilteredSpots(allSpots);
@@ -35,8 +40,10 @@ export const FilterBtn = ({
     setIsMounted(true);
     if (isMountedRef.current)
       setFilteredSpots(
-        allSpotsRef.filter((spotToFilter) => {
-          return spotToFilter.probability.includes(searchTermWind.toString()) &&
+        allSpotsRef.current.filter((spotToFilter) => {
+          return spotToFilter.probability
+            .toString()
+            .includes(searchTermWind.toString()) &&
             spotToFilter.country
               .toLowerCase()
               .includes(searchTermCountry.toLowerCase())
