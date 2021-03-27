@@ -33,7 +33,7 @@ export const FilterBtn = ({
   }
 
   function handleSubmitFilter() {
-    handleCloseFilterModal();
+    setShowM(false);
   }
 
   useEffect(() => {
