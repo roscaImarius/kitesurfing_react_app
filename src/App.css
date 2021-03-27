@@ -62,6 +62,12 @@
   width: 175px;
 }
 
+.mapboxgl-popup-close-button {
+  padding-top: 0;
+  margin-right: 4px;
+  font-size: 19px;
+}
+
 /* TABLE */
 .tableContainer {
   font-size: 13px;
@@ -111,12 +117,6 @@
 }
 .filterBtn {
   height: 25px;
-}
-
-.mapboxgl-popup-close-button {
-  padding-top: 0;
-  margin-right: 4px;
-  font-size: 19px;
 }
 
 /* MEDIA */

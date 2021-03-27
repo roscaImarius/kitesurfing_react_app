@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import filterIcon from "../imgs/filter.png";
 import Modal from "react-bootstrap/Modal";
 
 export const FilterBtn = ({
+  viewport,
+  setViewPort,
   filteredSpots,
   setFilteredSpots,
   allSpots,
   setAllSpots,
 }) => {
   const [showM, setShowM] = useState(false);
-  const [tempSpots, setTempSpots] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
   const [searchTermWind, setSearchTermWind] = useState("");
   const [searchTermCountry, setSearchTermCountry] = useState("");
-
-  console.log(allSpots, filteredSpots);
+  const [isMounted, setIsMounted] = useState(false);
+  const allSpotsRef = useRef(allSpots);
+  const isMountedRef = useRef(isMounted);
 
   function handleFilters() {
     setShowM(true);
@@ -23,6 +24,7 @@ export const FilterBtn = ({
 
   function handleCloseFilterModal() {
     setShowM(false);
+    setFilteredSpots(allSpots);
   }
 
   function handleSubmitFilter() {
@@ -31,11 +33,13 @@ export const FilterBtn = ({
 
   useEffect(() => {
     setIsMounted(true);
-    if (isMounted)
+    if (isMountedRef.current)
       setFilteredSpots(
-        allSpots.filter((spotToFilter) => {
+        allSpotsRef.filter((spotToFilter) => {
           return spotToFilter.probability.includes(searchTermWind.toString()) &&
-            spotToFilter.country.includes(searchTermCountry)
+            spotToFilter.country
+              .toLowerCase()
+              .includes(searchTermCountry.toLowerCase())
             ? spotToFilter
             : false;
         })
@@ -44,18 +48,6 @@ export const FilterBtn = ({
       setIsMounted(false);
     };
   }, [searchTermWind, searchTermCountry, setFilteredSpots]);
-
-  // function handleChangeInputC(termCountry) {
-  //   setFilteredSpots(
-  //     tempSpots.filter((spotToFilter) => {
-  //       if (spotToFilter.country.includes(termCountry)) {
-  //         return spotToFilter;
-  //       } else {
-  //         return false;
-  //       }
-  //     })
-  //   );
-  // }
 
   return (
     <div>

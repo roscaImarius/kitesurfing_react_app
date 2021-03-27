@@ -17,6 +17,7 @@ export const Mapbox = ({
   setViewport,
   viewport,
 }) => {
+  // console.log(allSpots);
   const markers = React.useMemo(
     () =>
       filteredSpots.map((spot) => (
